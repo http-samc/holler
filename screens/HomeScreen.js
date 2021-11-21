@@ -1,6 +1,6 @@
 // React imports
 import React, { useRef, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useFonts } from 'expo-font';
 import { Icon } from 'react-native-elements'
@@ -45,12 +45,8 @@ const HomeScreen = () => {
     });
 
     // Handle Errs after all hooks declared to avoid problems
-    if (messages === undefined)
+    if (messages === undefined || !loaded)
         return null
-
-    if (!loaded) {
-        return null;
-    }
 
     const handleSignOut = () => {
         auth
@@ -62,7 +58,7 @@ const HomeScreen = () => {
     }
 
     const sendMessage = async () => {
-        msgFinal = msgDraft;
+        var msgFinal = msgDraft;
         setMsgDraft('');
         await messagesRef.add({
             body: msgFinal,
@@ -72,11 +68,11 @@ const HomeScreen = () => {
         });
     }
 
-    const renderStart = Math.round(Date.now() / 1000);
+    var renderStart = Math.round(Date.now() / 1000);
 
     // TODO: scroll to bottom on send msg
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
             <SafeAreaView>
                 <Text style={styles.title}>Holler</Text>
             </SafeAreaView>
@@ -84,7 +80,7 @@ const HomeScreen = () => {
                 <View style={styles.msgsContainer}>
                     {
                         messages.map((msg) => {
-                            //if (msg.ttl <= renderStart) return;
+                            if (msg.ttl <= renderStart) return;
                             return <Message
                                 message={msg.body}
                                 avatar={msg.avatar}
@@ -98,7 +94,7 @@ const HomeScreen = () => {
                 </View>
             </ScrollView>
 
-            <SafeAreaView style={styles.actionBar}>
+            <View style={styles.actionBar}>
 
                 <TextInput
                     placeholder="📝 Say something nice!"
@@ -123,9 +119,9 @@ const HomeScreen = () => {
                     <Icon name="logout" color="white" />
                 </TouchableOpacity>
 
-            </SafeAreaView>
+            </View>
 
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -164,7 +160,7 @@ const styles = StyleSheet.create({
     actionBar: {
         flexDirection: 'row',
         padding: 20,
-
+        marginBottom: 10,
         alignItems: 'center'
     },
     input: {

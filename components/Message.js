@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { SvgUri } from 'react-native-svg';
 import { useFonts } from 'expo-font';
+import Avatar from './Avatar';
 
 const Message = (props) => {
     // Configure fonts
@@ -9,14 +9,12 @@ const Message = (props) => {
         MontserratSemiBold: require('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf'),
     });
 
+    if (!loaded)
+        return null;
+
     return (
         <View style={[styles.messageContainer, props.inbound ? styles.inbound : styles.outbound]}>
-            <View style={styles.imageContainer}>
-                {/* <SvgUri
-                    style={styles.avatar}
-                    source={{ uri: `${props.avatar}` }}
-                /> */}
-            </View>
+            <Avatar uri={props.avatar} />
             <Text style={styles.messageBody}>{props.message}</Text>
         </View>
     )
@@ -46,14 +44,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         fontFamily: 'MontserratSemiBold',
         color: 'white'
-    },
-    imageContainer: {
-        width: 20,
-        height: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        margin: 5
-    },
-    avatar: {
-    },
+    }
 });
