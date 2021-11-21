@@ -1,8 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { SvgUri } from 'react-native-svg';
+import { useFonts } from 'expo-font';
 
 const Message = (props) => {
+    // Configure fonts
+    const [loaded] = useFonts({
+        MontserratSemiBold: require('../assets/fonts/Montserrat/Montserrat-SemiBold.ttf'),
+    });
+
     return (
         <View style={[styles.messageContainer, props.inbound ? styles.inbound : styles.outbound]}>
             <View style={styles.imageContainer}>
@@ -21,7 +27,7 @@ export default Message
 const styles = StyleSheet.create({
     messageContainer: {
         maxWidth: '70%',
-        padding: 5,
+        padding: 10,
         borderRadius: 10,
         margin: 5,
         flexDirection: 'row',
@@ -37,7 +43,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#2294fb'
     },
     messageBody: {
-        marginHorizontal: 10
+        paddingHorizontal: 10,
+        fontFamily: 'MontserratSemiBold',
+        color: 'white'
     },
     imageContainer: {
         width: 20,

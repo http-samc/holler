@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
+import { useFonts } from 'expo-font';
 
 // Custom components
 import Message from '../components/Message';
@@ -36,8 +37,19 @@ const HomeScreen = () => {
         .limit(25);
     const [messages] = useCollectionData(query, { idField: 'id' });
 
+    // Configure fonts
+    const [loaded] = useFonts({
+        MontserratRegular: require('../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
+        MontserratBold: require('../assets/fonts/Montserrat/Montserrat-Bold.ttf'),
+    });
+
+    // Handle Errs after all hooks declared to avoid problems
     if (messages === undefined)
         return null
+
+    if (!loaded) {
+        return null;
+    }
 
     const handleSignOut = () => {
         auth
@@ -64,8 +76,9 @@ const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <SafeAreaView>
+                <Text style={styles.title}>Holler</Text>
             </SafeAreaView>
-            <ScrollView style={styles.chatScrollView}>
+            <ScrollView style={styles.chatScrollView} showsVerticalScrollIndicator={false}>
                 <View style={styles.msgsContainer}>
                     {
                         messages.map((msg) => {
@@ -117,7 +130,7 @@ const styles = StyleSheet.create({
     msgsContainer: {
         flexDirection: 'column',
         alignItems: 'flex-start',
-        //backgroundColor: "#222",
+        padding: 20,
         width: '100%',
         height: '100%'
     },
@@ -126,6 +139,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: "#222"
+    },
+    title: {
+        fontSize: 35,
+        color: "white",
+        fontFamily: 'MontserratBold'
     },
     button: {
         backgroundColor: '#0782F9',
@@ -139,6 +157,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '700',
         fontSize: 16,
+        fontFamily: 'MontserratRegular'
     },
     chatScrollView: {
         width: '100%',
