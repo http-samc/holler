@@ -20,6 +20,7 @@ var avatar = null;
 var email = null;
 
 // TODO: Force view rerender on timer
+// FIXME: Memory leak
 
 const HomeScreen = () => {
     if (avatar == null) {
@@ -108,7 +109,7 @@ const HomeScreen = () => {
             <View style={styles.actionBar}>
 
                 <TextInput
-                    placeholder="📝 Say something nice!"
+                    placeholder="what's on your mind?"
                     placeholderTextColor="white"
                     autoCapitalize='none'
                     textAlign="center"
@@ -144,13 +145,15 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         padding: 20,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        maxWidth: 700,
+        alignSelf: 'center'
     },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#222"
+        backgroundColor: "#222",
     },
     title: {
         fontSize: 35,

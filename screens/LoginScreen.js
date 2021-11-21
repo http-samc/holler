@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#222'
+        backgroundColor: '#222',
+        padding: 10
     },
     inputContainer: {
         width: '80%'
@@ -128,7 +129,8 @@ const styles = StyleSheet.create({
     form: {
         flexDirection: 'column',
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        maxWidth: 500
     },
     input: {
         borderColor: '#0782F9',
