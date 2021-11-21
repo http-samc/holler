@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
     buttonOutline: {
         backgroundColor: 'white',
         marginTop: 5,
-        borderWidth: 2,
     },
     buttonText: {
         color: 'white',
