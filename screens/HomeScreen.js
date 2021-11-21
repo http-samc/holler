@@ -1,9 +1,9 @@
 // React imports
-import React, { useRef, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 import { useFonts } from 'expo-font';
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
 
 // Custom components
 import Message from '../components/Message';
@@ -20,6 +20,7 @@ var avatar = null;
 var email = null;
 
 // TODO: Force view rerender on timer
+// TODO: Handle auth callbacks
 // FIXME: Memory leak
 
 const HomeScreen = () => {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#222",
     },
     title: {
-        fontSize: 35,
+        fontSize: 55,
         color: "white",
         fontFamily: 'MontserratBold'
     },

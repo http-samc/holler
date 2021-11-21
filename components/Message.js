@@ -13,7 +13,7 @@ const Message = (props) => {
         return null;
 
     return (
-        <View style={[styles.messageContainer, props.inbound ? styles.inbound : styles.outbound]}>
+        <View style={[styles.messageContainer, props.inbound ? styles.outbound : styles.inbound]}>
             <Avatar uri={props.uri} />
             <Text style={styles.messageBody}>{props.message}</Text>
         </View>
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden'
     },
-    outbound: {
+    inbound: {
         alignSelf: 'flex-start',
         backgroundColor: '#747474'
     },
-    inbound: {
+    outbound: {
         alignSelf: 'flex-end',
         backgroundColor: '#2294fb'
     },
