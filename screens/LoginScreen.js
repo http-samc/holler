@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Platform } from 'react-native'
 import { auth } from '../firebase'
 import { useFonts } from 'expo-font';
 
@@ -80,7 +80,7 @@ const LoginScreen = () => {
     return (
         <KeyboardAvoidingView
             style={styles.container}
-            behavior="padding"
+            behavior={(Platform.OS == "ios" ? "padding" : undefined)}
         >
             <View>
                 <Text style={styles.title}>Welcome to Holler.</Text>

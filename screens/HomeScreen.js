@@ -1,6 +1,6 @@
 // React imports
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { useFonts } from 'expo-font';
 import { Icon } from 'react-native-elements';
@@ -82,7 +82,9 @@ const HomeScreen = () => {
 
     // TODO: scroll to bottom on send msg
     return (
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={(Platform.OS == "ios" ? "padding" : undefined)}>
             <SafeAreaView>
                 <Text style={styles.title}>Holler</Text>
             </SafeAreaView>
