@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useFonts } from 'expo-font';
+import { Icon } from 'react-native-elements'
 
 // Custom components
 import Message from '../components/Message';
@@ -73,6 +74,7 @@ const HomeScreen = () => {
 
     const renderStart = Math.round(Date.now() / 1000);
 
+    // TODO: scroll to bottom on send msg
     return (
         <View style={styles.container}>
             <SafeAreaView>
@@ -96,31 +98,34 @@ const HomeScreen = () => {
                 </View>
             </ScrollView>
 
-            <View style={styles.sendMessageContainer}>
+            <SafeAreaView style={styles.actionBar}>
 
                 <TextInput
                     placeholder="📝 Say something nice!"
+                    placeholderTextColor="white"
                     autoCapitalize='none'
+                    textAlign="center"
                     value={msgDraft}
                     onChangeText={text => setMsgDraft(text)}
                     style={styles.input} />
 
-            </View>
+                <TouchableOpacity
+                    onPress={sendMessage}
+                    style={styles.button}
+                >
+                    <Icon style={styles.icon} name="send" color="white" />
+                </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={sendMessage}
-                style={styles.button}
-            >
-                <Text style={styles.buttonText}>Send Message</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={handleSignOut}
-                style={styles.button}
-            >
-                <Text style={styles.buttonText}>Sign out</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handleSignOut}
+                    style={styles.button}
+                >
+                    <Icon name="logout" color="white" />
+                </TouchableOpacity>
+
+            </SafeAreaView>
+
         </View>
-
     )
 }
 
@@ -146,21 +151,30 @@ const styles = StyleSheet.create({
         fontFamily: 'MontserratBold'
     },
     button: {
-        backgroundColor: '#0782F9',
-        width: '60%',
-        padding: 15,
+        backgroundColor: '#5D7EA2',
+        padding: 5,
         borderRadius: 10,
+        margin: 5,
         alignItems: 'center',
-        marginTop: 40,
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 16,
-        fontFamily: 'MontserratRegular'
     },
     chatScrollView: {
         width: '100%',
         alignSelf: 'center'
+    },
+    actionBar: {
+        flexDirection: 'row',
+        padding: 20,
+
+        alignItems: 'center'
+    },
+    input: {
+        fontFamily: 'MontserratRegular',
+        color: 'white',
+        width: '65%',
+        borderColor: '#5D7EA2',
+        borderWidth: 2,
+        borderRadius: 10,
+        marginRight: 5,
+        padding: 7
     }
 });
