@@ -4,6 +4,11 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import { auth } from '../firebase'
 import { useFonts } from 'expo-font';
 
+const wrongPassword = 'auth/wrong-password';
+const notFound = 'auth/user-not-found';
+const badEmail = 'auth/invalid-email';
+const badPass = 'auth/weak-password';
+
 // TODO: implement shared preferences to use 'remember me'
 
 const LoginScreen = () => {
@@ -38,7 +43,18 @@ const LoginScreen = () => {
             .then(userCredentials => {
                 const user = userCredentials.user;
             })
-            .catch(error => alert(error.message))
+            .catch(error => {
+                if (error.message.includes(wrongPassword))
+                    alert('Incorrect password!')
+                else if (error.message.includes(notFound))
+                    alert('User not found! Check that your email is correct.')
+                else if (error.message.includes(badEmail))
+                    alert('Please enter a valid email address!')
+                else if (error.message.includes(badPass))
+                    alert('Passwords must be at least 6 characters long,')
+                else
+                    alert('Unknown error. Please make sure you are connected to the Internet.')
+            });
     }
 
     const handleLogin = () => {
@@ -47,7 +63,18 @@ const LoginScreen = () => {
             .then(userCredentials => {
                 const user = userCredentials.user;
             })
-            .catch(error => alert(error.message))
+            .catch(error => {
+                if (error.message.includes(wrongPassword))
+                    alert('Incorrect password!')
+                else if (error.message.includes(notFound))
+                    alert('User not found! Check that your email is correct.')
+                else if (error.message.includes(badEmail))
+                    alert('Please enter a valid email address!')
+                else if (error.message.includes(badPass))
+                    alert('Passwords must be at least 6 characters long,')
+                else
+                    alert('Unknown error. Please make sure you are connected to the Internet.')
+            });
     }
 
     return (

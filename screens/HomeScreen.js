@@ -113,7 +113,7 @@ const HomeScreen = () => {
                     placeholder="what's on your mind?"
                     placeholderTextColor="white"
                     autoCapitalize='none'
-                    textAlign="center"
+                    textAlign="left"
                     value={msgDraft}
                     onChangeText={text => setMsgDraft(text)}
                     style={styles.input} />
