@@ -4,15 +4,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 // Custom components
-import IncomingMsg from '../components/IncomingMsg';
+import Message from '../components/Message';
 
 // Firebase imports
 import { auth, firestore, firebase } from '../firebase'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 // Util imports
 import getAvatar from '../utils/avatar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 avatar = null;
 
 // TODO: Force view rerender on timer
@@ -58,24 +59,41 @@ const HomeScreen = () => {
         });
     }
 
+    const renderStart = Math.round(Date.now() / 1000);
+
     return (
         <View style={styles.container}>
-            <View>
-                {
-                    messages.map((msg) => {
-                        if (msg.ttl <= Math.round(Date.now() / 1000)) return;
-                        return <IncomingMsg message={msg.body} avatar={msg.avatar} key={msg.id} />
-                    })
-                }
-            </View>
+            <SafeAreaView>
+            </SafeAreaView>
+            <ScrollView style={styles.chatScrollView}>
+                <View style={styles.msgsContainer}>
+                    {
+                        messages.map((msg) => {
+                            //if (msg.ttl <= renderStart) return;
+                            return <Message
+                                message={msg.body}
+                                avatar={msg.avatar}
+                                key={msg.id}
+                                inbound={Boolean(
+                                    msg.avatar === avatar
+                                )}
+                            />
+                        })
+                    }
+                </View>
+            </ScrollView>
+
             <View style={styles.sendMessageContainer}>
+
                 <TextInput
                     placeholder="📝 Say something nice!"
                     autoCapitalize='none'
                     value={msgDraft}
                     onChangeText={text => setMsgDraft(text)}
                     style={styles.input} />
+
             </View>
+
             <TouchableOpacity
                 onPress={sendMessage}
                 style={styles.button}
@@ -96,10 +114,18 @@ const HomeScreen = () => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
+    msgsContainer: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        //backgroundColor: "#222",
+        width: '100%',
+        height: '100%'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: "#222"
     },
     button: {
         backgroundColor: '#0782F9',
@@ -114,4 +140,8 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 16,
     },
+    chatScrollView: {
+        width: '100%',
+        alignSelf: 'center'
+    }
 });
