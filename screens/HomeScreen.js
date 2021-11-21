@@ -20,7 +20,6 @@ var avatar = null;
 var email = null;
 
 // TODO: Force view rerender on timer
-// TODO: Handle auth callbacks
 // FIXME: Memory leak
 
 const HomeScreen = () => {
@@ -61,7 +60,7 @@ const HomeScreen = () => {
         auth
             .signOut()
             .then(() => {
-                navigation.replace("Login")
+                navigation.replace("Log In")
             })
             .catch(error => alert(error.message))
     }
