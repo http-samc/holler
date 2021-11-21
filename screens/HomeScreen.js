@@ -62,9 +62,9 @@ const HomeScreen = () => {
         <View style={styles.container}>
             <View>
                 {
-                    messages.map((msg, idx) => {
+                    messages.map((msg) => {
                         if (msg.ttl <= Math.round(Date.now() / 1000)) return;
-                        return <IncomingMsg message={msg.body} avatar={msg.avatar} />
+                        return <IncomingMsg message={msg.body} avatar={msg.avatar} key={msg.id} />
                     })
                 }
             </View>
