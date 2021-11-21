@@ -14,7 +14,7 @@ const Message = (props) => {
 
     return (
         <View style={[styles.messageContainer, props.inbound ? styles.inbound : styles.outbound]}>
-            <Avatar uri={props.avatar} />
+            <Avatar uri={props.uri} />
             <Text style={styles.messageBody}>{props.message}</Text>
         </View>
     )

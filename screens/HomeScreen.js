@@ -14,9 +14,10 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 // Util imports
-import getAvatar from '../utils/avatar';
+import getAvatar from '../utils/getAvatar';
 import { SafeAreaView } from 'react-native-safe-area-context';
-avatar = null;
+var avatar = null;
+var email = null;
 
 // TODO: Force view rerender on timer
 
@@ -30,6 +31,9 @@ const HomeScreen = () => {
 
     // Use state for message input binding
     const [msgDraft, setMsgDraft] = useState('');
+
+    // Scroll to bottom hook
+    //var scrollView = useRef();
 
     // Configure Firestore realtime message query
     const messagesRef = firestore.collection("messages");
@@ -47,6 +51,9 @@ const HomeScreen = () => {
     // Handle Errs after all hooks declared to avoid problems
     if (messages === undefined || !loaded)
         return null
+
+    // Functions
+    //const scrollToBottom = () => scrollView.current.scrollToEnd({ animated: true });
 
     const handleSignOut = () => {
         auth
@@ -66,6 +73,7 @@ const HomeScreen = () => {
             ttl: Math.round(Date.now() / 1000) + 5,
             avatar: avatar
         });
+        //scrollToBottom();
     }
 
     var renderStart = Math.round(Date.now() / 1000);
@@ -76,14 +84,17 @@ const HomeScreen = () => {
             <SafeAreaView>
                 <Text style={styles.title}>Holler</Text>
             </SafeAreaView>
-            <ScrollView style={styles.chatScrollView} showsVerticalScrollIndicator={false}>
+            <ScrollView
+                //ref={scrollView}
+                style={styles.chatScrollView}
+                showsVerticalScrollIndicator={false}>
                 <View style={styles.msgsContainer}>
                     {
                         messages.map((msg) => {
                             if (msg.ttl <= renderStart) return;
                             return <Message
                                 message={msg.body}
-                                avatar={msg.avatar}
+                                uri={msg.avatar}
                                 key={msg.id}
                                 inbound={Boolean(
                                     msg.avatar === avatar

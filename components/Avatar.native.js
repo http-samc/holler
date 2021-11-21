@@ -1,12 +1,16 @@
 import React from 'react'
-import { Platform, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-import { ReactSVG } from 'react-svg';
+import { SvgUri } from 'react-native-svg';
 
 const Avatar = (props) => {
     return (
         <View style={styles.avatarContainer}>
-            <ReactSVG src={props.uri} />
+            <SvgUri
+                width="100%"
+                height="100%"
+                uri={props.uri}
+            />
         </View>
     )
 }
