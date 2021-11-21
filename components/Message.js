@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     messageContainer: {
         maxWidth: '70%',
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 15,
         margin: 5,
         flexDirection: 'row',
         alignItems: 'center',
@@ -34,11 +34,13 @@ const styles = StyleSheet.create({
     },
     inbound: {
         alignSelf: 'flex-start',
-        backgroundColor: '#747474'
+        backgroundColor: '#747474',
+        borderBottomLeftRadius: 0
     },
     outbound: {
         alignSelf: 'flex-end',
-        backgroundColor: '#2294fb'
+        backgroundColor: '#2294fb',
+        borderBottomRightRadius: 0
     },
     messageBody: {
         paddingHorizontal: 10,
