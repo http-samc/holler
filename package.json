@@ -33,7 +33,8 @@
     "react-svg": "^14.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@expo/electron-adapter": "^0.0.55"
   },
   "private": true
 }
